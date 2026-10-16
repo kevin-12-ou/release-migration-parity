@@ -1,0 +1,4 @@
+interface:
+  display_name: "上线与迁移一致性"
+  short_description: "保留已验收体验，分析实验版发布与跨平台迁移差异并验证关键流程"
+  default_prompt: "使用 $release-migration-parity，先核对已验收版本与目标环境的差异，再完成必要适配和验证。"
