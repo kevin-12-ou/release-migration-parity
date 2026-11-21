@@ -9,7 +9,7 @@ import yaml
 
 def validate(root):
     errors = []
-    required = ['SKILL.md', 'README.md', 'README.zh-CN.md', 'LICENSE',
+    required = ['SKILL.md', 'README.md', 'README.en.md', 'LICENSE',
                 'NOTICE.md', 'CONTRIBUTING.md', 'SECURITY.md', 'VALIDATION.md',
                 'agents/openai.yaml', 'llms.txt']
     for relative in required:

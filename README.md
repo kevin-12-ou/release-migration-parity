@@ -1,37 +1,37 @@
-# Release Migration Parity
+# 上线与迁移一致性 · release-migration-parity
 
-[简体中文](README.zh-CN.md) | [Skill instructions](SKILL.md) | [Maintainer: kevin-12-ou](https://github.com/kevin-12-ou)
+[![Agent Skills](https://img.shields.io/badge/Agent_Skills-Format-blue)](https://agentskills.io/specification) [![Validation](https://github.com/kevin-12-ou/release-migration-parity/actions/workflows/validate.yml/badge.svg)](https://github.com/kevin-12-ou/release-migration-parity/actions/workflows/validate.yml) [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-**An AI agent skill for preserving accepted UI, behavior, and data semantics when releasing an app or migrating it to another platform.**
+[English](README.en.md) | [技能正文](SKILL.md) | [维护者：kevin-12-ou](https://github.com/kevin-12-ou)
 
-A build can pass while dialogs lose styles, two app modes stop sharing data, or a platform migration silently drops accepted behavior.
+本地验收没问题，上线后弹窗样式却变了，旧新版数据不互通；或者迁移到小程序时悄悄漏掉原有功能。这个技能围绕已验收体验做对照。
 
-This is an **Agent Skill: instructions and reference material for an AI assistant**, not a hosted service or an autonomous program. The package contains no installation hooks, application runtime, models, background services, or credentials; its Python script is only for development-time package validation. The assistant still operates under its host permissions and the user's authorization.
+这是给 AI 编程助手读取的 **Agent Skill（指令与参考材料）**。包内不包含后台服务、安装执行钩子或模型；Python 脚本仅用于开发时检查包结构；安装后由助手按需读取，实际操作仍受宿主工具权限和用户授权约束。
 
-## When to use it
+## 能帮你做什么
 
-- Use the accepted source and its actual working state as the baseline.
-- Inspect routing, CSS scope, portals, identity, storage, and platform boundaries.
-- Verify an end-to-end path before expanding a cross-platform migration.
-- Tie the tested source, build artifact, deployment, and rollback together.
+- 以用户已验收的实际源码和工作区状态为基准。
+- 查清路由、CSS、Portal、身份、存储和平台 API 的适配点。
+- 跨平台先跑通一条包含保存和重开的完整路径。
+- 绑定最终源码、构建、发布版本和回退位置，分别说明各层验证。
 
-## Install
+## 安装
 
-Use Git and an assistant that supports Agent Skills. The optional Skills CLI below also requires Node.js/npm and is a separate executable tool to review before running. This skill itself needs no API key, database, or paid account; your chosen AI assistant may have its own costs.
+需要 Git 和支持 Agent Skills 的 AI 助手。使用下面的 Skills CLI 命令还需要 Node.js/npm；CLI 是外部安装工具，运行前请自行审阅。安装本包不需要 API Key、数据库或付费账号，所用 AI 助手本身可能收费。
 
 ```sh
 npx skills add kevin-12-ou/release-migration-parity --skill release-migration-parity
 ```
 
-Choose the agent and scope in the installer. For a project-local Codex installation, with copied files rather than symlinks:
+CLI 会让你选择助手和安装范围。建议先装到测试项目中检查效果。以下是 Codex 的项目级安装示例，不带 `--global`：
 
 ```sh
 npx skills add kevin-12-ou/release-migration-parity --skill release-migration-parity --agent codex --copy
 ```
 
-Manual option: copy the complete repository into a skill directory named `release-migration-parity`, such as `.agents/skills/release-migration-parity/`, where supported by your assistant. Keep `SKILL.md` and its referenced files together; follow your client's skill-directory documentation.
+手动安装：下载本仓库，将完整目录保留为 `release-migration-parity`，放到助手支持的技能目录中，例如 `.agents/skills/release-migration-parity/`。保留参考文件，不能只复制 README；以助手文档为准。
 
-## Example prompts
+## 直接这样问
 
 ```text
 Use $release-migration-parity. Publish the accepted experimental version while preserving its dialogs, theme, data semantics, and existing entry points. Verify the actual deployed flow and provide a rollback reference.
@@ -49,24 +49,24 @@ Use $release-migration-parity. Port this working web app to a WeChat Mini Progra
 用 $release-migration-parity。把这个可用网页迁到微信小程序，保留网页原版，核对平台差异，先验证一条编辑、保存、重开的完整路径。
 ```
 
-Explicitly naming the skill helps make intent clear. Automatic selection depends on the model and client and is not guaranteed. The package follows the [Agent Skills specification](https://agentskills.io/specification); clients such as Codex and Claude Code can read this format, but equivalent behavior across every client is not claimed. Core instructions are primarily Chinese; this English README provides discovery and usage context.
+显式点名更清楚；自动选择由模型和客户端决定，不保证每次命中。本包采用通用 [Agent Skills 格式](https://agentskills.io/specification)，在 Codex、Claude Code 等支持该格式的工具中可供读取；未宣称所有客户端的实际行为均已测试。技能正文以中文为主。
 
-## Boundaries and data
+## 边界与数据
 
-Not a promise of zero bugs or identical source code across platforms. Compilation, HTTP availability, browser interaction, and real-device behavior are distinct evidence levels.
+不承诺零 bug，也不要求跨平台源码相同。编译通过、HTTP 可访问、浏览器交互和真机行为是不同层次的证据。
 
-No private project history is bundled. File access, network requests, commands, and edits depend on the task and the assistant's tools. A text skill is not an isolation boundary or a mandatory security interceptor.
+包内没有凭据或个人项目记录。是否读取项目、写文件、联网或执行命令，取决于任务和助手权限；公开技能本身不会提供隔离或强制拦截。
 
-## Maintenance and feedback
+## 更新、停用与贡献
 
-For Skills CLI installs, `npx skills check` checks for updates and `npx skills update` updates installed skills. Review changes first. Disable the skill in your client, or move its installed directory out of discovery, to stop using it. Back up any personal additions before updating or removing it.
+通过 Skills CLI 安装时可用 `npx skills check` 检查更新、`npx skills update` 更新已安装技能；更新前审阅差异。停用可在助手设置中禁用，或移走安装的技能目录；先备份自己新增的内容。
 
-Report a sanitized example in [Issues](https://github.com/kevin-12-ou/release-migration-parity/issues). See [CONTRIBUTING.md](CONTRIBUTING.md) and [VALIDATION.md](VALIDATION.md) for contribution and validation boundaries.
+问题和改进建议请提交到 [Issues](https://github.com/kevin-12-ou/release-migration-parity/issues)，提供去除隐私的最小例子。维护说明见 [CONTRIBUTING.md](CONTRIBUTING.md)，公开包检查见 [VALIDATION.md](VALIDATION.md)。
 
-## Related skills by kevin-12-ou
+## 同一维护者的其他技能
 
-- [Concept to Action Coach](https://github.com/kevin-12-ou/concept-to-action-coach) — An AI agent skill for explaining technical concepts to beginners and turning understanding into a small, verifiable action.
-- [Don't Repeat Yourself](https://github.com/kevin-12-ou/dont-repeat-yourself) — An AI agent skill for saving verified coding solutions as searchable recipes and adapting them to future projects.
-- [Deploy Onboarding Guide](https://github.com/kevin-12-ou/deploy-onboarding-guide) — A Chinese-first AI agent skill for assessing open-source software before installation and explaining setup, permissions, costs, and first use.
+- [从概念到行动教练](https://github.com/kevin-12-ou/concept-to-action-coach) — 听过术语，也能复述定义，但仍不知道什么时候需要它、该怎么开始。这个技能把解释接到一个能完成、能验收的小行动上。
+- [成功方案复用与经验库](https://github.com/kevin-12-ou/dont-repeat-yourself) — 脚本已经跑通、坑也踩过了，换个项目却又从头找。这个技能把成功结果整理成可搜索的小配方，并在下次使用前核验适用条件。
+- [开源项目安装评估与上手指南](https://github.com/kevin-12-ou/deploy-onboarding-guide) — 只说“部署好了”不够。用户还需要知道它具体干什么、需不需要 API 或付费账号、会改哪里，以及第一次怎么用。
 
-Maintained by [kevin-12-ou](https://github.com/kevin-12-ou). Developed from personal AI-assisted workflows. Licensed under [MIT](LICENSE); see [NOTICE.md](NOTICE.md) for provenance.
+由 [kevin-12-ou](https://github.com/kevin-12-ou) 维护，整理自个人 AI 辅助工作流。采用 [MIT](LICENSE) 许可；来源说明见 [NOTICE.md](NOTICE.md)。

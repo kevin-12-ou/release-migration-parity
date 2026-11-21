@@ -12,7 +12,7 @@ Install: npx skills add kevin-12-ou/release-migration-parity --skill release-mig
 ## Documentation
 
 - [Agent instructions](https://raw.githubusercontent.com/kevin-12-ou/release-migration-parity/main/SKILL.md): capability and invocation scope.
-- [English README](https://raw.githubusercontent.com/kevin-12-ou/release-migration-parity/main/README.md): examples, installation, and limitations.
-- [中文说明](https://raw.githubusercontent.com/kevin-12-ou/release-migration-parity/main/README.zh-CN.md): 用途、安装、示例和边界。
+- [English README](https://raw.githubusercontent.com/kevin-12-ou/release-migration-parity/main/README.en.md): examples, installation, and limitations.
+- [中文说明](https://raw.githubusercontent.com/kevin-12-ou/release-migration-parity/main/README.md): 用途、安装、示例和边界。
 
 This is a concise documentation index, not a guarantee that a search engine or AI service will ingest or recommend this repository.
